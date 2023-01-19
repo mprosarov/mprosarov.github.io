@@ -1,7 +1,7 @@
-/*   //= _page.empty.js
+function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-//  = _app.loaddata.js
-*/
 var manipWindow = (function(){
     let clbk_end = null;
     const IN_ANIM = 'animate__fadeIn';
@@ -121,9 +121,234 @@ var manipWindow = (function(){
     }
 
 })();
+var doctorWin = (function(){
+    let current_win = null;
+    let _clbk = null;
+    const IN_ANIM = 'animate__fadeIn';
+    const OUT_ANIM = 'animate__fadeOut';
+
+    let win_doctor = document.getElementById('modal-doctor');
+    let win_error = win_doctor.querySelector('.modal-doctor-error');
+    let win_inspect_0 = document.getElementById('modal-inspect-0');
+    let win_inspect_1 = document.getElementById('modal-inspect-1');
+    let win_inspect_2 = document.getElementById('modal-inspect-2');
+    let win_inspect_3 = document.getElementById('modal-inspect-3');
+
+    let complite_0 = false;
+    let complite_1 = false;
+    let complite_2 = false;
+    let complite_3 = false;
+
+    win_inspect_0.addEventListener('animationend',_animEnd)
+    win_inspect_1.addEventListener('animationend', _animEnd)
+    win_inspect_2.addEventListener('animationend', _animEnd)
+    win_inspect_3.addEventListener('animationend', _animEnd)
+    function _animEnd(){
+        if(this.classList.contains(OUT_ANIM)){
+            this.classList.add('d-none');
+        }
+    }
+
+    win_doctor.addEventListener('animationend',()=>{
+        if(win_doctor.classList.contains(OUT_ANIM)){
+            win_doctor.classList.add('d-none');
+        }
+    });
+    win_error.addEventListener('animationend',()=>{
+        if(win_error.classList.contains(OUT_ANIM))
+            win_error.classList.add('d-none');
+    });
+
+    function isComplite(){
+        return complite_0 && complite_1 && complite_2 && complite_3;
+    };
+    function _openWin(win){
+        win.classList.remove('d-none');
+        win.classList.remove(OUT_ANIM);
+        win.classList.add('animate__animated', IN_ANIM)
+    };
+    function _closeWin(win){
+        win.classList.remove(IN_ANIM);
+        win.classList.add(OUT_ANIM);
+    };
+    function open(){
+        win_doctor.classList.remove('d-none');
+        win_doctor.classList.add('animate__animated',IN_ANIM);
+    };
+    function openInspect(num){
+        current_win = num;
+        if(num == 0){
+            _openWin(win_inspect_0);
+            complite_0 = true;
+            return;
+        }
+        if (num == 1) {
+            _openWin(win_inspect_1);
+            complite_1 = true;
+            return;
+        }
+        if (num == 2) {
+            _openWin(win_inspect_2);
+            complite_2 = true;
+            return;
+        }
+        if (num == 3) {
+            _openWin(win_inspect_3);
+            complite_3 = true;
+            return;
+        }
+    }
+    function closeInspect(){
+        switch(current_win){
+            case 0:
+                _closeWin(win_inspect_0);
+                break;
+            case 1:
+                _closeWin(win_inspect_1);
+                break;
+            case 2:
+                _closeWin(win_inspect_2);
+                break;
+            case 3:
+                _closeWin(win_inspect_3);
+                break;
+        }
+    };
+    function closeErrorWin(){
+        win_error.classList.remove(IN_ANIM);
+        win_error.classList.add(OUT_ANIM);
+    };
+    function next(){
+        if(!isComplite()){
+            win_error.classList.remove('d-none',OUT_ANIM);
+            win_error.classList.add('animate__animated',IN_ANIM);
+            return;
+        }
+        win_doctor.classList.add(OUT_ANIM);
+        _clbk();
+    };
+    function onComplite(clbk){
+        _clbk = clbk;
+    }
+    return {
+        next:next,
+        closeErrorWin: closeErrorWin,
+        open:open,
+        openInspect:openInspect,
+        onComplite:onComplite,
+        closeInspect: closeInspect
+    }
+
+})();
+var diagnozWin = (function(){
+    let _clbk = null;
+    const IN_ANIM = 'animate__fadeIn';
+    const OUT_ANIM = 'animate__fadeOut';
+    let win = document.getElementById('modal-diagnoz');
+    let win_error = win.querySelector('.modal-error');
+    let win_succes = win.querySelector('.succes');
+
+    win.addEventListener('animationend',()=>{
+        if(win.classList.contains(OUT_ANIM)){
+            win.classList.add('d-none');
+            _clbk();
+        }
+    });
+    win_error.addEventListener('animationend',()=>{
+        if(win_error.classList.contains(OUT_ANIM)){
+            win_error.classList.add('d-none');
+        }
+    });
+
+    function open(){
+        win.classList.remove('d-none');
+        win.classList.add('animate__animated', IN_ANIM);
+    }
+    async function check(flag){
+        if(!flag){
+            win_error.classList.remove('d-none',OUT_ANIM);
+            win_error.classList.add('animate__animated',IN_ANIM);
+            await wait(1800);
+            win_error.classList.remove(IN_ANIM);
+            win_error.classList.add(OUT_ANIM)
+            return;
+        }
+        win_succes.classList.remove('d-none');
+        win_succes.classList.add('animate__animated', IN_ANIM);
+        await wait(1800);
+        win.classList.remove(IN_ANIM);
+        win.classList.add(OUT_ANIM);
+    }
+    function onComplite(clbk){
+        _clbk = clbk;
+    }
+
+    return {
+        open:open,
+        check: check,
+        onComplite: onComplite
+    }
+
+})();
+var sweetModal = (function(){
+    const IN_ANIM = 'animate__fadeIn';
+    const OUT_ANIM = 'animate__fadeOut';
+    let win_cola = document.getElementById('modal-sweet-1');
+    let win_candy = document.getElementById('modal-sweet-2');
+    let win_choco = document.getElementById('modal-sweet-3');
+
+    let err_cola = win_cola.querySelector('.modal-doctor-error');
+
+    win_cola.querySelector('[data-btn="yes"]').onclick = function(){
+        _showWin(err_cola);
+    }
+    win_cola.querySelector('[data-btn="no"]').onclick = function () {
+        _closeWin(win_cola);
+    }
+
+    win_candy.addEventListener('animationend',_animEnd);
+
+    function _animEnd(){
+        if(this.classList.contains(OUT_ANIM)){
+            this.classList.add('d-none');
+        }
+    };
+    function _closeWin(win){
+        win.classList.remove(IN_ANIM);
+        win.classList.add(OUT_ANIM);
+    }
+    function _showWin(win){
+        win.classList.remove('d-none',OUT_ANIM);
+        win.classList.add('animate__animated', 'animate__fast',IN_ANIM);
+    }
+
+    function cola(){
+        _showWin(win_cola);
+    }
+    function candy(){
+        _showWin(win_candy)
+    }
+    function choco(){
+        _showWin(win_choco)
+    }
+    function finalCola(){
+        finalStateBoyTop();
+        _closeWin(win_cola)
+        f
+    }
+
+    return {
+        cola:cola,
+        candy:candy,
+        choco:choco,
+        finalCola: finalCola
+    }
+
+})();
 const TEXTS = {
     BOY_TOP: {
-        HELLO: document.getElementById('g-hello-text-boy-top')
+        HELLO: document.getElementById('g-hello-text-boy-top'),
+        LINE_1: document.getElementById('text-boy-top-1')
     },
     BOY_INVALID:{
         HELLO: document.getElementById('g-hello-text-boy-invalid'),
@@ -131,10 +356,12 @@ const TEXTS = {
         SITDOWN_3L: document.getElementById('invalid-sitdown-3L')
     },
     GIRL_TOP:{
-        HELLO: document.getElementById('g-hello-text-girl-top')
+        HELLO: document.getElementById('g-hello-text-girl-top'),
+        LINE_1: document.getElementById('text-girl-top-1')
     },
     GIRL_BOT:{
-        HELLO: document.getElementById('g-hello-text-girl-bottom')
+        HELLO: document.getElementById('g-hello-text-girl-bottom'),
+        LINE_1: document.getElementById('text-girl-bottom-1')
     },
     TEACHER:{
         HELLO: document.getElementById('g-hello-text'),
@@ -143,17 +370,31 @@ const TEXTS = {
         ONE_LINE: document.getElementById('teacher-1')
     },
     DOCTOR:{
-        LINE_2: document.getElementById('doctor-line-2')
+        LINE_2: document.getElementById('doctor-line-2'),
+        LINE_3: document.getElementById('doctor-line-3'),
     }
 }
 
 const ARROW = document.getElementById('arrow-svg');
+const ARROW_GIRL_TOP = document.getElementById('arrow-girl-top');
+const ARROW_GIRL_BOT = document.getElementById('arrow-girl-bot');
+const ARROW_BOY_TOP = document.getElementById('arrow-boy-top');
 const CHAIR = document.getElementById('chair-fale'); // упавший стул
+
+const SVG_B = {
+    BOY_TOP_NORMAL: document.getElementById('boy-top-normal'),
+    BOY_TOP_HAND: document.getElementById('boy-top-hand'),
+    GIRL_TOP_NORMAL: document.getElementById('girl-top-normal'),
+    GIRL_TOP_HAND: document.getElementById('girl-top-hand'),
+    GIRL_BOT_NORMAL: document.getElementById('girl-bot-normal'),
+    GIRL_BOT_HAND: document.getElementById('girl-bot-hand'),
+}
 
 const BUBBLES = {
   GIRL_TOP: document.getElementById("girl-top-bubble"),
   GIRL_BOTTOM: document.getElementById("girl-bottom-bubble"),
   BOY_TOP: document.getElementById("boy-top-bubble"),
+  BOY_TOP_HAND: document.getElementById('bubble-boy-top-2'),
   BOY_INVALID: document.getElementById("boy-invalid-bubble"),
   INVALID_SITDOWN: document.getElementById('bubble-invalid-sitdown'),
   TEACHER: document.getElementById("teacher-bubble"),
@@ -177,10 +418,10 @@ const INVALID_STATE = {
 }
 
 manipWindow.setClbk(doctorScene);
+doctorWin.onComplite(diagnozScene);
+diagnozWin.onComplite(finalScene);
 
-function wait(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
+
 
 async function tappingText(el,str) {
     for(let i=0;i<str.length;i++){
@@ -301,7 +542,8 @@ async function startGame() {
     await tappingText(TEXTS.TEACHER.ONE_LINE.children[0],'Судороги!')
     await wait(800);
     ARROW.classList.remove('d-none');
-    ARROW.classList.add('animate__animated', 'animate__bounce', 'animate__infinite');
+    ARROW.classList.add('shake-vertical');
+    // ARROW.classList.add('animate__animated', 'animate__bounce', 'animate__infinite');
 }
 async function doctorScene(){
     clearReplic(TEXTS.TEACHER.ONE_LINE);
@@ -342,10 +584,55 @@ async function continueDoctorScene(){
     await tappingText(TEXTS.DOCTOR.LINE_2.children[0],'Давай я тебя');
     await tappingText(TEXTS.DOCTOR.LINE_2.children[1], 'осмотрю!');
     await wait(800);
-    let m = document.getElementById("modal-doctor");
-    m.classList.remove('d-none');
-    m.classList.add("animate__animated", "animate__fadeIn");
+    doctorWin.open();
 }
+async function diagnozScene(){
+    clearReplic(TEXTS.DOCTOR.LINE_2);
+    await wait(800);
+    await tappingText(TEXTS.DOCTOR.LINE_2.children[0],'Я думаю, что');
+    await tappingText(TEXTS.DOCTOR.LINE_2.children[1], 'здесь…');
+    await wait(800);
+    diagnozWin.open();
+}
+//Завершающая сцена - сладкое
+async function finalScene(){
+    BUBBLES.BOY_INVALID.classList.add('d-none'); // убираем т.к мешает нажать
+    clearReplic(TEXTS.DOCTOR.LINE_2);
+    TEXTS.DOCTOR.LINE_2.classList.add('d-none');
+    await wait(800);
+    TEXTS.DOCTOR.LINE_3.classList.remove('d-none');
+    await tappingText(TEXTS.DOCTOR.LINE_3.children[0], 'Ребята у вас есть');
+    await tappingText(TEXTS.DOCTOR.LINE_3.children[1], 'что-нибудь');
+    await tappingText(TEXTS.DOCTOR.LINE_3.children[2], 'сладкое с собой?');
+    await wait(800);
+    showBubble(BUBBLES.BOY_TOP_HAND)
+    await wait(100);
+    // поднятая рука
+    SVG_B.BOY_TOP_NORMAL.classList.add('d-none');
+    SVG_B.BOY_TOP_HAND.classList.remove('d-none');
+    TEXTS.BOY_TOP.LINE_1.classList.remove('d-none');
+    await tappingText(TEXTS.BOY_TOP.LINE_1.children[0],'У меня есть!')
+    ARROW_BOY_TOP.classList.remove('d-none');
+    await wait(500);
+    showBubble(BUBBLES.GIRL_BOTTOM);
+    TEXTS.GIRL_BOT.LINE_1.classList.remove('d-none');
+    await wait(500);
+    // поднятая рука
+    SVG_B.GIRL_BOT_NORMAL.classList.add('d-none');
+    SVG_B.GIRL_BOT_HAND.classList.remove('d-none');
+    await tappingText(TEXTS.GIRL_BOT.LINE_1.children[0],'У меня тоже есть!')
+    ARROW_GIRL_BOT.classList.remove('d-none');
+
+    await wait(500);
+    showBubble(BUBBLES.GIRL_TOP);
+    await wait(500);
+    TEXTS.GIRL_TOP.LINE_1.classList.remove('d-none');
+    await tappingText(TEXTS.GIRL_TOP.LINE_1.children[0],'И у меня!');
+    await wait(300);
+    ARROW_GIRL_TOP.classList.remove('d-none');
+    // поднятая рука
+
+};
 //Анимация судорог
 function animInvalid(){
     INVALID_STATE.LIE_01.classList.toggle('d-none');
@@ -364,7 +651,7 @@ function fadeOut(el){
 }
 function showBubble(){
     for (let i = 0; i < arguments.length; i++) {
-        arguments[i].classList.remove('animate__fadeOut');
+        arguments[i].classList.remove('animate__fadeOut','d-none');
         arguments[i].classList.add("animate__animated", "animate__fadeIn")
     }
 }
@@ -372,6 +659,14 @@ function showBubble(){
 function startSecondScane() {
     BUBBLES.GIRL_TOP.classList.add("animate__animated", "animate__fadeOut");
     document.getElementById("g-hello-text-girl-top").classList.add("d-none");
+}
+
+function finalStateBoyTop(){
+    ARROW_BOY_TOP.classList.add('d-none');
+    SVG_B.BOY_TOP_HAND.classList.add('d-none');
+    SVG_B.BOY_TOP_NORMAL.classList.remove('d-none');
+    TEXTS.BOY_TOP.LINE_1.classList.add('d-none');
+    fadeOut(BUBBLES.BOY_TOP_HAND);
 }
 
 async function tappingHello(group,cb){
