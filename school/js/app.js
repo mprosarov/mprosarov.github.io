@@ -47,21 +47,25 @@ var manipWindow = (function(){
     });
     function show(){
         win.classList.remove('d-none');
-        win.classList.add("animate__animated", IN_ANIM);
+        win.classList.add("animate__animated", 'animate__fast', IN_ANIM);
     }
     function _close(){
         win.classList.remove(IN_ANIM);
         win.classList.add(OUT_ANIM);
     }
     function showConfirm(num){
+        let p = confirm_win.querySelectorAll('p');
+        for(let i=0;i<p.length;i++){
+            p[i].classList.add('d-none');
+        }
         currentNum = num;
         confirm_win.querySelectorAll('p')[num].classList.remove('d-none')
-        confirm_win.classList.remove('d-none','animate__fadeOut');
-        confirm_win.classList.add(IN_ANIM);
+        confirm_win.classList.remove('d-none', OUT_ANIM);
+        confirm_win.classList.add('animate__fast',IN_ANIM);
     };
     function closeConfirm() {
         confirm_win.classList.remove(IN_ANIM);
-        confirm_win.classList.add("animate__animated",'animate__fadeOut')
+        confirm_win.classList.add("animate__animated", OUT_ANIM)
     };
     function execOperation(){
         if(currentNum == 0){
@@ -83,7 +87,7 @@ var manipWindow = (function(){
     }
     function _openOperation(modal){
         modal.classList.remove('d-none',OUT_ANIM);
-        modal.classList.add('animate__animated',IN_ANIM);
+        modal.classList.add('animate__animated', 'animate__fast',IN_ANIM);
     }
     function _closeOperationModal(modal){
         modal.classList.remove(IN_ANIM);
@@ -165,7 +169,7 @@ var doctorWin = (function(){
     function _openWin(win){
         win.classList.remove('d-none');
         win.classList.remove(OUT_ANIM);
-        win.classList.add('animate__animated', IN_ANIM)
+        win.classList.add('animate__animated', 'animate__fast', IN_ANIM)
     };
     function _closeWin(win){
         win.classList.remove(IN_ANIM);
@@ -173,7 +177,7 @@ var doctorWin = (function(){
     };
     function open(){
         win_doctor.classList.remove('d-none');
-        win_doctor.classList.add('animate__animated',IN_ANIM);
+        win_doctor.classList.add('animate__animated', 'animate__fast',IN_ANIM);
     };
     function openInspect(num){
         current_win = num;
@@ -221,10 +225,10 @@ var doctorWin = (function(){
     function next(){
         if(!isComplite()){
             win_error.classList.remove('d-none',OUT_ANIM);
-            win_error.classList.add('animate__animated',IN_ANIM);
+            win_error.classList.add('animate__animated', 'animate__fast',IN_ANIM);
             return;
         }
-        win_doctor.classList.add(OUT_ANIM);
+        win_doctor.classList.add(OUT_ANIM, 'animate__fast');
         _clbk();
     };
     function onComplite(clbk){
@@ -298,6 +302,8 @@ var sweetModal = (function(){
     let win_choco = document.getElementById('modal-sweet-3');
 
     let err_cola = win_cola.querySelector('.modal-doctor-error');
+    let err_candy = win_candy.querySelector('.modal-doctor-error');
+    let suc_choco = win_choco.querySelector('.modal-error');
 
     win_cola.querySelector('[data-btn="yes"]').onclick = function(){
         _showWin(err_cola);
@@ -305,7 +311,21 @@ var sweetModal = (function(){
     win_cola.querySelector('[data-btn="no"]').onclick = function () {
         _closeWin(win_cola);
     }
+    win_candy.querySelector('[data-btn="yes"]').onclick = function(){
+        _showWin(err_candy)
+    }
+    win_candy.querySelector('[data-btn="no"]').onclick = function () {
+        _closeWin(win_candy);
+    }
+    win_choco.querySelector('[data-btn="yes"]').onclick = function () {
+        _showWin(suc_choco)
+    }
+    win_choco.querySelector('[data-btn="no"]').onclick = function () {
+        _closeWin(win_choco);
+    }
 
+    win_choco.addEventListener('animationend', _animEnd);
+    win_cola.addEventListener('animationend', _animEnd);
     win_candy.addEventListener('animationend',_animEnd);
 
     function _animEnd(){
@@ -334,14 +354,41 @@ var sweetModal = (function(){
     function finalCola(){
         finalStateBoyTop();
         _closeWin(win_cola)
-        f
+    }
+    function finalCandy(){
+        finalStateGirlTop();
+        _closeWin(win_candy)
+    }
+    function finalChoco(){
+        _closeWin(win_choco);
+        finalStateGirlBot();
     }
 
     return {
         cola:cola,
         candy:candy,
         choco:choco,
-        finalCola: finalCola
+        finalCola: finalCola,
+        finalCandy: finalCandy,
+        finalChoco: finalChoco
+    }
+
+})();
+var resume = (function(){
+    var win = document.getElementById('modal-resume');
+    var par = win.parentNode;
+
+    function _open(){
+        // win.classList.remove('d-none')
+        par.classList.remove('d-none');
+        win.classList.add('animate__bounceIn');
+    }
+    function finish(){
+        location.reload()
+    }
+    return {
+        open:_open,
+        finish:finish
     }
 
 })();
@@ -472,13 +519,13 @@ async function startGame() {
     BUBBLES.GIRL_TOP.classList.remove('d-none')
     tappingHello(girlTop);
     await wait(150);
-    BUBBLES.BOY_INVALID.classList.remove('d-none')
+    showBubble(BUBBLES.BOY_INVALID);
     tappingHello(boyInvalid);
     await wait(100);
-    BUBBLES.BOY_TOP.classList.remove('d-none')
+    showBubble(BUBBLES.BOY_TOP)
     tappingHello(boyTop);
     await wait(120);
-    BUBBLES.GIRL_BOTTOM.classList.remove('d-none');
+    showBubble(BUBBLES.GIRL_BOTTOM)
     // await tappingHello(girlBot, startSecondScane);
     await tappingHello(girlBot);
     await wait(800);
@@ -597,6 +644,8 @@ async function diagnozScene(){
 //Завершающая сцена - сладкое
 async function finalScene(){
     BUBBLES.BOY_INVALID.classList.add('d-none'); // убираем т.к мешает нажать
+    BUBBLES.INVALID_SITDOWN.classList.add('d-none');
+    TEXTS.BOY_INVALID.HELLO.classList.add('d-none');
     clearReplic(TEXTS.DOCTOR.LINE_2);
     TEXTS.DOCTOR.LINE_2.classList.add('d-none');
     await wait(800);
@@ -627,6 +676,8 @@ async function finalScene(){
     showBubble(BUBBLES.GIRL_TOP);
     await wait(500);
     TEXTS.GIRL_TOP.LINE_1.classList.remove('d-none');
+    SVG_B.GIRL_TOP_NORMAL.classList.add('d-none');
+    SVG_B.GIRL_TOP_HAND.classList.remove('d-none');
     await tappingText(TEXTS.GIRL_TOP.LINE_1.children[0],'И у меня!');
     await wait(300);
     ARROW_GIRL_TOP.classList.remove('d-none');
@@ -667,6 +718,28 @@ function finalStateBoyTop(){
     SVG_B.BOY_TOP_NORMAL.classList.remove('d-none');
     TEXTS.BOY_TOP.LINE_1.classList.add('d-none');
     fadeOut(BUBBLES.BOY_TOP_HAND);
+}
+
+function finalStateGirlTop(){
+    ARROW_GIRL_TOP.classList.add('d-none');
+    SVG_B.GIRL_TOP_HAND.classList.add('d-none');
+    SVG_B.GIRL_TOP_NORMAL.classList.remove('d-none');
+    TEXTS.GIRL_TOP.LINE_1.classList.add('d-none');
+    fadeOut(BUBBLES.GIRL_TOP);
+}
+async function finalStateGirlBot(){
+    ARROW_GIRL_BOT.classList.add('d-none');
+    SVG_B.GIRL_BOT_HAND.classList.add('d-none');
+    SVG_B.GIRL_BOT_NORMAL.classList.remove('d-none');
+    TEXTS.GIRL_BOT.LINE_1.classList.add('d-none');
+    TEXTS.DOCTOR.LINE_3.classList.add('d-none');
+    fadeOut(BUBBLES.DOCTOR);
+    fadeOut(BUBBLES.GIRL_BOTTOM);
+    finalStateBoyTop();
+    finalStateGirlTop();
+    await wait(500);
+    resume.open();
+
 }
 
 async function tappingHello(group,cb){

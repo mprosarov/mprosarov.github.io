@@ -16,6 +16,9 @@ html,body{
 .t-center{
     text-align: center;
 }
+.svg-hover:hover{
+    cursor: pointer;
+}
 /* ============ */
 .app-wrapper{
     height: 100%;
@@ -27,6 +30,8 @@ html,body{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
 }
 
 .student-g{
@@ -240,6 +245,9 @@ html,body{
     .modal-confirm_action{
         flex-direction: column;
     }
+    .modal-confirm{
+        width: 100%;
+    }
 }
 /* MODAL OPERATION */
 .modal-operation{
@@ -350,9 +358,19 @@ html,body{
     align-items: center;
     width: 20%;
 }
+.item_svg>svg{
+    min-width: 105px;
+    max-width: 165px;
+}
 .modal-doctor_content_item:hover{
     cursor: pointer;
     transform: scale(1.1);
+}
+@media (max-width: 784px){
+    .modal-doctor_content_item {
+            flex: none;
+            width: 26%;
+    }
 }
 .item_svg>svg{
     width: 100%;
@@ -368,6 +386,9 @@ html,body{
     top:50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    width: 100%;
+    max-width: 480px;
+
     background: #E46143;
     color: white;
     padding: 40px;
@@ -480,6 +501,19 @@ html,body{
   background:#003758;
   color:white;
 }
+@media (max-height:509px){
+    .modal-diagnoz{
+        padding-top: 20px;
+        padding-bottom: 15px;
+    }
+    .modal-diagnoz_variants{
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .btn-diagnoz{
+        padding: 10px 50px;
+    }
+}
 
 /* error-modal */
 .modal-error{
@@ -518,6 +552,36 @@ html,body{
 .btn-error:hover{
   cursor:pointer;
   background:#c74d32;
+}
+
+/* MODAL RESUME */
+.modal-resume{
+    /* position: absolute; */
+    border: 2px solid #FC5756;
+    border-radius: 5px;
+    background: white;
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
+    width: 100%;
+    height: 100%;
+    max-width: 1060px;
+    max-height: 460px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+.resume-caption{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 24px;
+}
+.resume-content{
+    flex: 1;
+    background-color: #00365809;
+}
+.resume-action{
+    text-align: center;
 }
 
 .shake-vertical {
