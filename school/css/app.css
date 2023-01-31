@@ -154,7 +154,20 @@ html,body{
     display: flex;
     justify-content: center;
 }
-
+@media (max-width:460px) {
+    .modal-main {
+        padding: 40px;
+        height: auto;
+        max-height: 100%;
+    }
+}
+@media (max-height:330px) {
+    .modal-main {
+        padding: 20px;
+        height: auto;
+        max-height: 100%;
+    }
+}
 /* MODAL BTNS */
 .btn-modal-second{
     background: #FC5756;
