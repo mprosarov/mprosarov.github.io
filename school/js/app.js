@@ -400,7 +400,8 @@ const TEXTS = {
     BOY_INVALID:{
         HELLO: document.getElementById('g-hello-text-boy-invalid'),
         REPLIC_2: document.getElementById('invalid-replic-2'),
-        SITDOWN_3L: document.getElementById('invalid-sitdown-3L')
+        SITDOWN_3L: document.getElementById('invalid-sitdown-3L'),
+        SITDOWN_2L: document.getElementById('invalid-sitdown-2L')
     },
     GIRL_TOP:{
         HELLO: document.getElementById('g-hello-text-girl-top'),
@@ -421,7 +422,7 @@ const TEXTS = {
         LINE_3: document.getElementById('doctor-line-3'),
     }
 }
-
+const CLOCK = document.getElementById('clock_rotate');
 const ARROW = document.getElementById('arrow-svg');
 const ARROW_GIRL_TOP = document.getElementById('arrow-girl-top');
 const ARROW_GIRL_BOT = document.getElementById('arrow-girl-bot');
@@ -440,6 +441,7 @@ const SVG_B = {
 const BUBBLES = {
   GIRL_TOP: document.getElementById("girl-top-bubble"),
   GIRL_BOTTOM: document.getElementById("girl-bottom-bubble"),
+  GIRL_BOTTOM2: document.getElementById('girl-bottom-bubble-2'),
   BOY_TOP: document.getElementById("boy-top-bubble"),
   BOY_TOP_HAND: document.getElementById('bubble-boy-top-2'),
   BOY_INVALID: document.getElementById("boy-invalid-bubble"),
@@ -461,6 +463,8 @@ const INVALID_STATE = {
     NORMAL: document.getElementById('invalid-normal-state'),
     LIE_01: document.getElementById('boy-invalid-state-1'),
     LIE_02: document.getElementById('boy-invalid-state-2'),
+    LIE_03: document.getElementById('boy-invalid-state-3'),
+    LIE_04: document.getElementById('boy-invalid-state-4'),
     SITDOWN: document.getElementById('invalid-sitdown')
 }
 
@@ -472,7 +476,7 @@ diagnozWin.onComplite(finalScene);
 
 async function tappingText(el,str) {
     for(let i=0;i<str.length;i++){
-        await wait(100);
+        await wait(50);
         el.innerHTML+=str[i];
     }
 }
@@ -491,9 +495,18 @@ let coutText = coutWin.querySelector('span');
 coutWin.addEventListener('animationend',()=>{
     if (coutWin.classList.contains('animate__fadeOut')) coutWin.classList.add('d-none');
 });
+CLOCK.addEventListener('animationend',()=>{
+    if(CLOCK.classList.contains('clockRotate')){
+        doctorEnter();
+        CLOCK.classList.remove('clockRotate')
+        CLOCK.classList.add("animate__animated", "animate__fadeOut");
+    } else if (CLOCK.classList.contains('animate__fadeOut')){
+        CLOCK.classList.add('d-none');
+    }
+});
 async function coutDown(){
     coutWin.classList.remove('d-none');
-    coutWin.classList.add("animate__animated", "animate__fadeIn");
+    coutWin.classList.add("animate__animated", "animate__fadeIn","animate__fast");
     await wait(100);
     for(let i=9;i>=0;i--){
         await wait(1000);
@@ -593,24 +606,35 @@ async function startGame() {
     // ARROW.classList.add('animate__animated', 'animate__bounce', 'animate__infinite');
 }
 async function doctorScene(){
-    clearReplic(TEXTS.TEACHER.ONE_LINE);
-    await tappingText(TEXTS.TEACHER.ONE_LINE.children[0],'Медсестра!');
-    await coutDown();
-    TEXTS.TEACHER.ONE_LINE.classList.add('d-none');
-    clearReplic(TEXTS.TEACHER.HELLO);
-    TEXTS.TEACHER.HELLO.classList.remove('d-none');
-    clearInterval(ANIM_INVALID)
+    clearInterval(ANIM_INVALID);
     INVALID_STATE.LIE_01.classList.add('d-none');
     INVALID_STATE.LIE_02.classList.add('d-none');
+    INVALID_STATE.LIE_03.classList.remove('d-none')
+    ANIM_INVALID = setInterval(animInvalid2,250);
+    clearReplic(TEXTS.TEACHER.ONE_LINE);
+    await tappingText(TEXTS.TEACHER.ONE_LINE.children[0],'Медсестра!');
+    CLOCK.classList.remove('d-none');
+    CLOCK.classList.add('clockRotate');
+    return;
+    await coutDown();
+}
+async function doctorEnter(){
+    TEXTS.TEACHER.ONE_LINE.classList.add('d-none');
+    clearReplic(TEXTS.TEACHER.REPLIC_3);
+    TEXTS.TEACHER.REPLIC_3.classList.remove('d-none');
+    clearInterval(ANIM_INVALID)
+    INVALID_STATE.LIE_03.classList.add('d-none');
+    INVALID_STATE.LIE_04.classList.add('d-none');
     INVALID_STATE.SITDOWN.classList.remove('d-none');
-    await tappingText(TEXTS.TEACHER.HELLO.children[0],'Кажется, судороги');
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[0], 'Кажется, судороги');
     DOCTOR.classList.remove('d-none');
     DOCTOR.classList.add('move');
-    await tappingText(TEXTS.TEACHER.HELLO.children[1], 'кончились!');
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[1], 'закончились');
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[2], 'сами по себе!');
 }
 async function continueDoctorScene(){
     BUBBLES.DOCTOR.classList.remove('d-none');
-    TEXTS.TEACHER.HELLO.classList.add('d-none');
+    TEXTS.TEACHER.REPLIC_3.classList.add('d-none');
     fadeOut(BUBBLES.TEACHER);
     showBubble(BUBBLES.DOCTOR);
     TEXTS.DOCTOR.LINE_2.classList.remove('d-none');
@@ -619,13 +643,12 @@ async function continueDoctorScene(){
     await wait(800);
     BUBBLES.INVALID_SITDOWN.classList.remove('d-none');
     showBubble(BUBBLES.INVALID_SITDOWN);
-    clearReplic(TEXTS.BOY_INVALID.SITDOWN_3L);
-    TEXTS.BOY_INVALID.SITDOWN_3L.classList.remove('d-none');
-    await tappingText(TEXTS.BOY_INVALID.SITDOWN_3L.children[0], 'Нраооа...');
-    await tappingText(TEXTS.BOY_INVALID.SITDOWN_3L.children[1],'Почему я на полу?');
-    await tappingText(TEXTS.BOY_INVALID.SITDOWN_3L.children[2], '(Нечленораздельно)');
+    clearReplic(TEXTS.BOY_INVALID.SITDOWN_2L);
+    TEXTS.BOY_INVALID.SITDOWN_2L.classList.remove('d-none');
+    await tappingText(TEXTS.BOY_INVALID.SITDOWN_2L.children[0], 'Знааа...Энаассерг...');
+    await tappingText(TEXTS.BOY_INVALID.SITDOWN_2L.children[1],'Пооочему я на полу?');
     await wait(600)
-    TEXTS.BOY_INVALID.SITDOWN_3L.classList.add('d-none');
+    TEXTS.BOY_INVALID.SITDOWN_2L.classList.add('d-none');
     fadeOut(BUBBLES.INVALID_SITDOWN);
     clearReplic(TEXTS.DOCTOR.LINE_2);
     await tappingText(TEXTS.DOCTOR.LINE_2.children[0],'Давай я тебя');
@@ -663,7 +686,9 @@ async function finalScene(){
     await tappingText(TEXTS.BOY_TOP.LINE_1.children[0],'У меня есть!')
     ARROW_BOY_TOP.classList.remove('d-none');
     await wait(500);
-    showBubble(BUBBLES.GIRL_BOTTOM);
+    BUBBLES.GIRL_BOTTOM.classList.add('d-none');
+    TEXTS.GIRL_BOT.HELLO.classList.add('d-none');
+    showBubble(BUBBLES.GIRL_BOTTOM2);
     TEXTS.GIRL_BOT.LINE_1.classList.remove('d-none');
     await wait(500);
     // поднятая рука
@@ -688,6 +713,11 @@ async function finalScene(){
 function animInvalid(){
     INVALID_STATE.LIE_01.classList.toggle('d-none');
     INVALID_STATE.LIE_02.classList.toggle('d-none');
+}
+//Animation
+function animInvalid2(){
+    INVALID_STATE.LIE_03.classList.toggle('d-none');
+    INVALID_STATE.LIE_04.classList.toggle('d-none');
 }
 function clearReplic(groupNode){
     for(let i=0;i<groupNode.children.length;i++){
@@ -734,7 +764,7 @@ async function finalStateGirlBot(){
     TEXTS.GIRL_BOT.LINE_1.classList.add('d-none');
     TEXTS.DOCTOR.LINE_3.classList.add('d-none');
     fadeOut(BUBBLES.DOCTOR);
-    fadeOut(BUBBLES.GIRL_BOTTOM);
+    fadeOut(BUBBLES.GIRL_BOTTOM2);
     finalStateBoyTop();
     finalStateGirlTop();
     await wait(500);
