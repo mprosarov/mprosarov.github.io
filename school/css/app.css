@@ -623,7 +623,7 @@ html,body{
     overflow: auto;
 }
 .resume-content>p{
-    font-size: 18px;
+    font-size: 24px;
 }
 .resume-content>p:last-child{
     margin-bottom: 40px;

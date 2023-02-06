@@ -627,10 +627,17 @@ async function doctorEnter(){
     INVALID_STATE.LIE_04.classList.add('d-none');
     INVALID_STATE.SITDOWN.classList.remove('d-none');
     await tappingText(TEXTS.TEACHER.REPLIC_3.children[0], 'Кажется, судороги');
-    DOCTOR.classList.remove('d-none');
-    DOCTOR.classList.add('move');
+    // DOCTOR.classList.remove('d-none');
+    // DOCTOR.classList.add('move');
     await tappingText(TEXTS.TEACHER.REPLIC_3.children[1], 'закончились');
     await tappingText(TEXTS.TEACHER.REPLIC_3.children[2], 'сами по себе!');
+    await wait(800);
+    clearReplic(TEXTS.TEACHER.REPLIC_3);
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[0], 'Но я все равно');
+    DOCTOR.classList.remove('d-none');
+    DOCTOR.classList.add('move');
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[1], 'вызвала скорую');
+    await tappingText(TEXTS.TEACHER.REPLIC_3.children[2], 'помощь');
 }
 async function continueDoctorScene(){
     BUBBLES.DOCTOR.classList.remove('d-none');
