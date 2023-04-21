@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="modal-bd" id="modalGood">
+    <div class="modal modal-done ">
+        <div class="close">×</div>
+        <div class="modal-header">Внимание!!!</div>
+        <div class="modal-content">
+            очень интересно, но ни фига не понятно
+        </div>
+        <div class="modal-footer">
+            <button class="modal-footer_btn">Закрыть</button>
+        </div>
+    </div>
+</div>
+<div class="modal-bd" id="modalBad">
+    <div class="modal modal-notDone ">
+        <div class="close">×</div>
+        <div class="modal-header">Внимание!!!</div>
+        <div class="modal-content">
+            очень интересно, но ни фига не понятно
+        </div>
+        <div class="modal-footer">
+            <button class="modal-footer_btn">Закрыть</button>
+        </div>
+    </div>
+</div>
+<div class="zoom-wrap">
+    <div class="modal-zoom" id="modalZoom">
+        <img class="closeModal" src="img/close.svg" onclick="zoomWin.close()" alt="">
+        <div class="modal-zoom_name" id=modal-zoom_name></div>
+        <div class="modal-zoom_conteiner" id=modal-zoom_conteiner></div>
+    </div>
+</div>
+<div class="conteiner">
+    <div class="conteiner-content">
+        <div class="conteiner-content_block">
+            <div class="conteiner-content_arrow" onclick="scrollRow.scrollLeft()">
+                <img src="img/arrow-left.svg" alt="" width="100%">
+                <!-- <object data="img/arrow-left.svg" type=""></object> -->
+            </div>
+            <div class="conteiner-content_box" id="scrollRow">
+                <div class="row">
+                    <div class="image_box" data-img="001">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/001.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="002">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/002.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="003">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/003.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="004">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/004.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="005">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/005.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="006">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/006.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="007">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/007.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="008">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/008.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="009">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/009.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="010">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/010.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="011">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/011.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="012">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/012.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="013">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/013.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="014">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/014.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="015">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/015.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="image_box"  data-img="016">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/016.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="017">
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/017.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="018" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/018.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="019" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/019.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="020" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/020.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="021" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/021.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="022" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/022.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="023" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/023.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="024" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/024.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="025" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/025.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="026" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/026.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="027" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/027.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="028" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/028.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="029" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/029.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                    <div class="image_box" data-img="030" disabled>
+                        <div class="img-wrap">
+                            <img class="plus-svg" src="img/zoom.svg" alt="">
+                            <img src="img/030.svg" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="action">
+                            <button class="btn">Добавить в набор</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="conteiner-content_arrow" onclick="scrollRow.scrollRight()">
+                <img src="img/arrow-right.svg" alt="" width="100%">
+                <!-- <object data="img/arrow-right.svg" type=""></object> -->
+            </div>
+        </div>
+    </div>
+    <div class="conteiner-content" style="flex-direction: column;height: 100%;">
+        <div class="conteiner-content_text">
+            <div class="level-caption" id="level-caption">Соберите набор для трахеостомии</div>
+        </div>
+        <div class="conteiner-content_block">
+            <div class="conteiner-content_box tray" id="tray"></div>
+            <div class="conteiner-content_box" style="flex: unset;">
+            <button class="btn-3d" onclick="tooltipy.toogleTooltip()" id="toggleTooltipBtn">Включить названия инструментов</button>
+            <button class="btn-3d" onclick="startWindow.open()">Вернуться в меню</button>
+            <button class="btn-3d btn-success" onclick="finalLevel()">Завершить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tooltip" class="tooltip"></div>
+<div class="modal-start_wrap" id="startWindow">
+    <div class="modal-start">
+        <div class="modal-start_header">
+            <h3>Набор инструментов</h3>
+        </div>
+        <div class="modal-start_content">
+            <button class="btn-3d">Пройти обучение</button>
+            <div style="font-size: 20px;">Виберите тест набора инструментов</div>
+            <button class="btn-3d btn-info" onclick="startWindow.setLevel(LEVELS.LEVEL_1)">Трахеостомия</button>
+            <button class="btn-3d btn-info" onclick="startWindow.setLevel(LEVELS.LEVEL_2)">Аппендэктомия</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/app-const.js"></script>
+<script src="js/zoomWin.js"></script>
+<script src="js/app.js"></script>
+<script>
+    document.querySelectorAll('.image_box').forEach((item)=>{
+        item.addEventListener('click', function(){zoomWin.open(item.dataset.img)});
+    })
+</script>
+</html>
