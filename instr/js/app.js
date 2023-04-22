@@ -63,6 +63,7 @@ function addRemoveInstrument(){
 function clearLevel(){
     CURRENT_LEARN_STEP = 0;
     ADDED = [];
+    notifyLearn.clear();
     document.getElementById('tray').innerHTML = '';
     document.getElementById('scrollRow').querySelectorAll('.btn.remove').forEach(btn=>{btn.classList.remove('remove');btn.innerHTML = 'Добавить в набор'})
 }
@@ -161,13 +162,19 @@ let modeTabs = (function(){
 let notifyLearn = (function(){
     let notify = document.createElement('div');
     notify.classList.add('notify-learn');
+    notify.style.display = 'none';
     document.body.append(notify);
     function showNoty(txt){
+        notify.style.display = "";
         notify.innerHTML = txt;
+    };
+    function clear(){
+        notify.style.display = 'none';
     }
     return {
-        showNoty:showNoty
-    }
+      showNoty: showNoty,
+      clear: clear
+    };
 })();
 
 //============================
