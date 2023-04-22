@@ -21,13 +21,28 @@ var scrollRow = (function(){
 })();
 //Добавленные в лоток инструменты ['001','003',...,'008'];
 let ADDED = [];
-
+let MODE_ENUM = { LEARN:'learn',TEST:'test' };
+let MODE = MODE_ENUM.LEARN;
 let CURRENT_LEVEL = '';
+let CURRENT_LEARN_STEP = 0;
 
 function addRemoveInstrument(){
     let tray = document.getElementById('tray');
     event.stopPropagation();
     let img_num = event.target.closest('.image_box').dataset.img;
+    if(MODE == MODE_ENUM.LEARN){
+        if(img_num == RESULTS[CURRENT_LEVEL][CURRENT_LEARN_STEP]){
+            tray.insertAdjacentHTML('beforeend',`<div class="tray-item" data-num="${img_num}"><img src="img/${img_num}.svg" height="100%" width="100%" alt=""></div>`);
+            CURRENT_LEARN_STEP+=1;
+            if(CURRENT_LEARN_STEP != RESULTS[CURRENT_LEVEL].length){
+                notifyLearn.showNoty(getNotyTextByStep());
+            }
+            // Иначе окно с поздравлением
+        } else {
+            modalBad.open("Внимание", "Инструмент выбран неверно");
+        }
+        return
+    }
     let index = ADDED.indexOf(img_num)
     if(index>=0){
         let tray_item = tray.querySelector(`[data-num="${img_num}"]`);
@@ -46,12 +61,18 @@ function addRemoveInstrument(){
 }
 
 function clearLevel(){
+    CURRENT_LEARN_STEP = 0;
     ADDED = [];
     document.getElementById('tray').innerHTML = '';
     document.getElementById('scrollRow').querySelectorAll('.btn.remove').forEach(btn=>{btn.classList.remove('remove');btn.innerHTML = 'Добавить в набор'})
 }
 
 document.getElementById('scrollRow').querySelectorAll('.btn').forEach(btn=>btn.addEventListener('click',addRemoveInstrument))
+
+function getNotyTextByStep() {
+    let instNum = RESULTS[CURRENT_LEVEL][CURRENT_LEARN_STEP];
+    return `Добавьте: ${DESCR[instNum].name}`;
+}
 
 tooltipy = (function (){
     var tooltip = document.getElementById('tooltip');
@@ -116,6 +137,38 @@ tooltipy = (function (){
 
 
 })()
+//============================
+//       Выбор режима
+//============================
+let modeTabs = (function(){
+    let learnBtn = document.getElementById('btnLearn');
+    let testBtn = document.getElementById("btnTest");
+    const ACTIVE_CLASS = "btn-success";
+    learnBtn.onclick = function(){
+        testBtn.classList.remove(ACTIVE_CLASS);
+        learnBtn.classList.add(ACTIVE_CLASS);
+        MODE = MODE_ENUM.LEARN;
+    }
+    testBtn.onclick = function(){
+        learnBtn.classList.remove(ACTIVE_CLASS);
+        testBtn.classList.add(ACTIVE_CLASS);
+        MODE = MODE_ENUM.TEST;
+    }
+})();
+//============================
+//       Подсказки в режиме обучения
+//============================
+let notifyLearn = (function(){
+    let notify = document.createElement('div');
+    notify.classList.add('notify-learn');
+    document.body.append(notify);
+    function showNoty(txt){
+        notify.innerHTML = txt;
+    }
+    return {
+        showNoty:showNoty
+    }
+})();
 
 //============================
 //       Стартовое окно
@@ -135,6 +188,11 @@ let startWindow = (function(){
         levelCaption.innerHTML = LEVEL_CAPTION[CURRENT_LEVEL] || '';
         clearLevel();
         _close();
+        if(MODE == MODE_ENUM.LEARN){
+            modalGood.open('Информация','Снизу будут появляться шаги, которые необходимые выполнить',function(){
+                notifyLearn.showNoty(getNotyTextByStep());
+            });
+        }
     }
     return {
         open: open,

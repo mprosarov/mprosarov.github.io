@@ -421,3 +421,35 @@ html,body{
     overflow: auto;
 }
 /* =======MODAL START====== */
+
+/* TABS */
+.tab-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.tab-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -4px;
+}
+
+.tabs {
+    flex: 1;
+    display: flex;
+}
+
+.tabs button {
+    flex: 1;
+    box-shadow: 0 -0.3rem 0.6rem rgba(0, 0, 0, 0.2) inset;
+}
+.notify-learn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding:20px;
+    font-size: 20px;
+    background: #0079c4;
+    color: #000000;
+}

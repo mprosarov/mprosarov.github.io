@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app.css?v=2">
 </head>
 <body>
 <div class="modal-bd" id="modalGood">
@@ -347,17 +347,21 @@
             <h3>Набор инструментов</h3>
         </div>
         <div class="modal-start_content">
-            <button class="btn-3d">Пройти обучение</button>
-            <div style="font-size: 20px;">Виберите тест набора инструментов</div>
+            <div style="font-size: 20px;">Виберете режим</div>
+            <div class="tabs">
+                <button class="btn-3d tab-left btn-success" id="btnLearn">Обучение</button>
+                <button class="btn-3d tab-right" id="btnTest">Тест</button>
+            </div>
+            <div style="font-size: 20px;">Виберете тест набора инструментов</div>
             <button class="btn-3d btn-info" onclick="startWindow.setLevel(LEVELS.LEVEL_1)">Трахеостомия</button>
             <button class="btn-3d btn-info" onclick="startWindow.setLevel(LEVELS.LEVEL_2)">Аппендэктомия</button>
         </div>
     </div>
 </div>
 </body>
-<script src="js/app-const.js"></script>
-<script src="js/zoomWin.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app-const.js?v=2"></script>
+<script src="js/zoomWin.js?v=2"></script>
+<script src="js/app.js?v=2"></script>
 <script>
     document.querySelectorAll('.image_box').forEach((item)=>{
         item.addEventListener('click', function(){zoomWin.open(item.dataset.img)});
