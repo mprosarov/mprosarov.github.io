@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/app.css?v=3">
+    <link rel="stylesheet" href="css/app.css?v=4">
 </head>
 <body>
 <div class="modal-bd" id="modalGood">
@@ -20,6 +20,18 @@
 </div>
 <div class="modal-bd" id="modalBad">
     <div class="modal modal-notDone ">
+        <div class="close">×</div>
+        <div class="modal-header">Внимание!!!</div>
+        <div class="modal-content">
+            очень интересно, но ни фига не понятно
+        </div>
+        <div class="modal-footer">
+            <button class="modal-footer_btn">Закрыть</button>
+        </div>
+    </div>
+</div>
+<div class="modal-bd" id="modalInfo">
+    <div class="modal modal-info ">
         <div class="close">×</div>
         <div class="modal-header">Внимание!!!</div>
         <div class="modal-content">
@@ -360,8 +372,8 @@
 </div>
 </body>
 <script src="js/app-const.js"></script>
-<script src="js/zoomWin.js"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/zoomWin.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 <script>
     document.querySelectorAll('.image_box').forEach((item)=>{
         item.addEventListener('click', function(){zoomWin.open(item.dataset.img)});

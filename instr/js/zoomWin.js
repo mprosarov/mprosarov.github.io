@@ -48,3 +48,4 @@ function infoModal(parent){
 }
 let modalGood = new infoModal(document.getElementById('modalGood'));
 let modalBad= new infoModal(document.getElementById('modalBad'));
+let modalInfo= new infoModal(document.getElementById('modalInfo'));

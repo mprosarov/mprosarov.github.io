@@ -90,6 +90,9 @@ html,body{
 .modal-done{
     background: linear-gradient(to right bottom, hsl(199.38deg 50% 50%), hsl(138.38deg 50% 50%));
 }
+.modal-info{
+    background: linear-gradient(to right bottom, hsl(171.69deg 50% 50%), hsl(232.62deg 50% 50%));
+}
     .zoom-wrap,.modal-bd{
     height: 100%;
     width:100%;
@@ -443,13 +446,44 @@ html,body{
     flex: 1;
     box-shadow: 0 -0.3rem 0.6rem rgba(0, 0, 0, 0.2) inset;
 }
-.notify-learn{
+.notify-learn {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    padding:20px;
+    left: 2%;
+    width: 96%;
+    padding: 20px;
     font-size: 20px;
-    background: #0079c4;
-    color: #000000;
+    background: #b6d7e3;
+    color: #383838;
+    box-shadow: 0px -4px 7px -2px rgb(52 52 52 / 40%);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.notify-learn.slideOut{
+    animation: slideOut 0.8s ease-in-out both;
+}
+.notify-learn.slideIn{
+    animation: slideIn 0.8s ease-in-out reverse;
+}
+@keyframes slideOut{
+    0%{
+        transform: translateY(0);
+    }
+    10%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(100px);
+    }    
+}
+@keyframes slideIn{
+    0%{
+        transform: translateY(0);
+    }
+    10%{
+        transform: translateY(-10px);
+    }
+    100%{
+        transform: translateY(100px);
+    }    
 }

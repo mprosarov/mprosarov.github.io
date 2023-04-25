@@ -164,9 +164,30 @@ let notifyLearn = (function(){
     notify.classList.add('notify-learn');
     notify.style.display = 'none';
     document.body.append(notify);
+    let text = '';
+    notify.onanimationend = function(e){
+        if (e.animationName == 'slideIn'){
+            document.body.style.overflow='';
+        }
+        if (e.animationName == 'slideOut'){
+            notify.innerHTML = text;
+            notify.classList.remove('slideOut');           
+            notify.classList.add('slideIn');
+        }
+    } 
     function showNoty(txt){
         notify.style.display = "";
-        notify.innerHTML = txt;
+        document.body.style.overflow='hidden';
+        text = txt;
+        if(notify.classList.contains('slideIn')){
+            notify.classList.remove('slideIn');
+            notify.classList.add('slideOut');
+        }
+        else{
+            notify.classList.remove('slideOut');           
+            notify.classList.add('slideIn');   
+            notify.innerHTML = text;         
+        }
     };
     function clear(){
         notify.style.display = 'none';
@@ -196,7 +217,7 @@ let startWindow = (function(){
         clearLevel();
         _close();
         if(MODE == MODE_ENUM.LEARN){
-            modalGood.open('Информация','Снизу будут появляться шаги, которые необходимые выполнить',function(){
+            modalInfo.open('Информация','Снизу будут появляться шаги, которые необходимые выполнить',function(){
                 notifyLearn.showNoty(getNotyTextByStep());
             });
         }
