@@ -36,6 +36,8 @@ function addRemoveInstrument(){
             CURRENT_LEARN_STEP+=1;
             if(CURRENT_LEARN_STEP != RESULTS[CURRENT_LEVEL].length){
                 notifyLearn.showNoty(getNotyTextByStep());
+            } else {
+                modalGood.open("Поздравляем!", getFinalStringForLevel(), startWindow.open);
             }
             // Иначе окно с поздравлением
         } else {
@@ -81,6 +83,7 @@ tooltipy = (function (){
     let w,h;
     let tooltipIsOff = true;
     let toggleTooltipBtn = document.getElementById('toggleTooltipBtn');
+    let tooltipForBtn = document.getElementById("tooltipForBtn");
     function mouseInTooltip() {
         let num_img = event.target.closest('.image_box').dataset.img
         tooltip.innerHTML = DESCR[num_img].name;
@@ -117,6 +120,14 @@ tooltipy = (function (){
 
     function toogleTooltip(){
         if(tooltipIsOff){
+            tooltipForBtn.innerText = 'При наведении на инструмент – отобразится название';
+            tooltipForBtn.style.top = (toggleTooltipBtn.getBoundingClientRect().top - 50) + 'px';
+            tooltipForBtn.style.right = "0px";
+            tooltipForBtn.classList.add('show');
+            setTimeout(() => {
+                tooltipForBtn.classList.remove("show");
+                tooltipForBtn.style.top = "-100px";
+            }, 1800);
             document.querySelectorAll('.img-wrap').forEach(function (item) {
                 item.addEventListener('mouseenter', mouseInTooltip);
                 item.addEventListener('mouseleave', mouseOutTooltip);
@@ -148,11 +159,15 @@ let modeTabs = (function(){
     learnBtn.onclick = function(){
         testBtn.classList.remove(ACTIVE_CLASS);
         learnBtn.classList.add(ACTIVE_CLASS);
+        document.getElementById("finalBtn").classList.add("btn-disable");
+        document.getElementById("finalBtn").classList.remove("btn-success");
         MODE = MODE_ENUM.LEARN;
     }
     testBtn.onclick = function(){
         learnBtn.classList.remove(ACTIVE_CLASS);
         testBtn.classList.add(ACTIVE_CLASS);
+        document.getElementById("finalBtn").classList.remove("btn-disable");
+        document.getElementById("finalBtn").classList.add("btn-success");
         MODE = MODE_ENUM.TEST;
     }
 })();
@@ -171,10 +186,10 @@ let notifyLearn = (function(){
         }
         if (e.animationName == 'slideOut'){
             notify.innerHTML = text;
-            notify.classList.remove('slideOut');           
+            notify.classList.remove('slideOut');
             notify.classList.add('slideIn');
         }
-    } 
+    }
     function showNoty(txt){
         notify.style.display = "";
         document.body.style.overflow='hidden';
@@ -184,13 +199,13 @@ let notifyLearn = (function(){
             notify.classList.add('slideOut');
         }
         else{
-            notify.classList.remove('slideOut');           
-            notify.classList.add('slideIn');   
-            notify.innerHTML = text;         
+            notify.classList.remove('slideOut');
+            notify.classList.add('slideIn');
+            notify.innerHTML = text;
         }
     };
     function clear(){
-        notify.style.display = 'none';
+       if(notify) notify.style.display = 'none';
     }
     return {
       showNoty: showNoty,
@@ -210,6 +225,7 @@ let startWindow = (function(){
     }
     function open(){
         win.style.display = '';
+        notifyLearn.clear();
     };
     function setLevel(lvl){
         CURRENT_LEVEL = lvl
@@ -217,7 +233,7 @@ let startWindow = (function(){
         clearLevel();
         _close();
         if(MODE == MODE_ENUM.LEARN){
-            modalInfo.open('Информация','Снизу будут появляться шаги, которые необходимые выполнить',function(){
+            modalInfo.open('Информация','Следуйте указаниям внизу, чтобы собрать набор',function(){
                 notifyLearn.showNoty(getNotyTextByStep());
             });
         }
@@ -252,5 +268,19 @@ function finalLevel(){
             return;
         }
     }
-    modalGood.open('Поздравляем!', 'Набор для трахеостомии собран верно', startWindow.open);
+    modalGood.open("Поздравляем!", getFinalStringForLevel(), startWindow.open);
+}
+
+function getFinalStringForLevel() {
+    let result = ''
+    if(CURRENT_LEVEL == LEVELS.LEVEL_1){
+        result = "Набор для трахеостомии собран верно<br>";
+    }
+    if(CURRENT_LEVEL == LEVELS.LEVEL_2){
+        result = "Набор для аппендэктомии собран верно<br>";
+    }
+    for(let i=0;i<RESULTS[CURRENT_LEVEL].length;i++){
+        result+= '<br>' + DESCR[RESULTS[CURRENT_LEVEL][i]].name;
+    }
+    return result;
 }

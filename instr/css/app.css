@@ -43,6 +43,7 @@ html,body{
     position: relative;
     box-shadow: 1px 1px 6px 0px #5e5e5e;
     font-family: 'Inter', Tahoma, Verdana, sans-serif;
+    max-height: 90vh;
 }
 .close{
     position: absolute;
@@ -73,6 +74,7 @@ html,body{
     padding: 20px;
     color:white;
     font-size: 18px;
+    overflow: auto;
 }
 .modal-footer{
     display: flex;
@@ -360,6 +362,11 @@ html,body{
 .btn-success:active {
   --color: #ececec;
 }
+.btn-disable{
+    opacity: 0.3;
+    box-shadow: none;
+    pointer-events: none;
+}
 .tooltip{
     pointer-events: none;
     position: absolute;
@@ -474,7 +481,7 @@ html,body{
     }
     100%{
         transform: translateY(100px);
-    }    
+    }
 }
 @keyframes slideIn{
     0%{
@@ -485,5 +492,5 @@ html,body{
     }
     100%{
         transform: translateY(100px);
-    }    
+    }
 }
