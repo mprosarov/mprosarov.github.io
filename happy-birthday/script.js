@@ -160,6 +160,7 @@ class Movie {
     console.log('enter greeting ...');
     var actors = this.actors;
     var greetTl = new TimelineMax();
+    var txt = this.actors;
 
     greetTl.
     to(actors.greeting, 1, { autoAlpha: 1, onComplete: this._balloonDrag, onCompleteParams: [this] });
